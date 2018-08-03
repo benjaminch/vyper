@@ -179,9 +179,10 @@ class Vyper(object):
         """ Bind flags using FlagsProvider """
         args = args or []
         if flag_provider is not None:
-            self._flags = flag_provider.get_flags(args)
-            for f, _ in self._flags:
+            flags = flag_provider.get_flags(args)
+            for f in flags:
                 k = self._real_key(f.lower())
+                self._flags.update({k: flags.get(f)})
 
 
     def get(self, key):
